@@ -1,0 +1,29 @@
+{
+  "name": "transaction-runner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "coverage": "jest --coverage & rm -rf test-results",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bestbrain10/transaction-runner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bestbrain10/transaction-runner/issues"
+  },
+  "homepage": "https://github.com/bestbrain10/transaction-runner#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "joi": "^17.4.0",
+    "lodash": "^4.17.21",
+    "sequelize": "^6.6.2"
+  }
+}
