@@ -1,11 +1,12 @@
-const { Model } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const jwt = require('../common/utils/jwt');
+const DB = require('../database');
 
-
-module.exports = class Login extends Model {
+class Login extends Model {
     static logoutUser(loginID) {
         return this.update({
             loggedOut: true,
+            loggedOutAt: Sequelize.literal('CURRENT_TIMESTAMP')
         },{
             where: { 
                 id: loginID,
@@ -43,3 +44,23 @@ module.exports = class Login extends Model {
         });
     }
 }
+
+Login.init({
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    user: DataTypes.INTEGER,
+    logged_out: DataTypes.BOOLEAN,
+    logged_out_at: {
+            type: 'TIMESTAMP',
+    }
+}, {
+    tableName: 'logins',
+    underscored: true,
+    timestamps: true,
+    sequelize: DB
+});
+
+module.exports = Login;

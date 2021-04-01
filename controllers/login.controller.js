@@ -2,7 +2,7 @@
 
 const joi = require('joi');
 const User = require('../models/user.model');
-const Login = require('../../models/login.model');
+const Login = require('../models/login.model');
 
 
 module.exports = class {

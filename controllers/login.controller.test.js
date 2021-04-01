@@ -2,9 +2,9 @@ require('dotenv').config()
 
 const { mockNext, mockRequest, mockResponse } = require('../__mocks__/http');
 const LoginController = require('./login.controller');
-jest.mock('./database');
+jest.mock('../database');
 const User = require('../models/user.model');
-const Login = require('../models/user.model');
+const Login = require('../models/login.model');
 
 
 describe('Login Controller', () => {

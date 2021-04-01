@@ -1,15 +1,25 @@
-const { Model, DataTypes } = require("sequelize");
-const hashPassword = require('../../common/utils/hash-password');
-const DB = require('../../database');
+const { Model, DataTypes, Sequelize } = require("sequelize");
+const hashPassword = require('../common/utils/hash-password');
+const DB = require('../database');
 const { omit } = require('lodash');
 
 class User extends Model {
 
+    /**
+     * compares input password with stored hash
+     * @param {string} inputPassword 
+     * @returns 
+     */
     comparePassword(inputPassword) {
         return this.password === hashPassword(inputPassword);
     }
 
 
+    /**
+     * Registers a new user, makes sure email is unique
+     * @param {object} user 
+     * @returns 
+     */
     static async register(user) {
         const emailExists = await this.count({
             where: { email: user.email },
@@ -24,6 +34,11 @@ class User extends Model {
         return omit(newUser.toJSON(), ['password'])
     }
 
+    /**
+     * Logs in a user, checks for password and email correctness
+     * @param {object} loginParams 
+     * @returns 
+     */
     static async login(loginParams) {
         const user = await this.scope('withPassword').findOne({
             where: {
@@ -40,6 +55,22 @@ class User extends Model {
         }
 
         return user;
+    }
+
+    /**
+     * Increments or decrement user's account by amount
+     * @param {number} user 
+     * @param {number} amount 
+     * @param {Transaction} transaction
+     * @returns 
+     */
+    static async modifyBalance(user, amount, transaction) {
+        return this.update({
+            balance: Sequelize.literal(`balance + ${amount}`)
+        }, {
+            where: { id: user },
+            transaction
+        });
     }
 }
 
