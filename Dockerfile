@@ -7,7 +7,7 @@ WORKDIR /app
 
 RUN npm ci
 
-RUN chown -R captain /opt/app
+RUN chown -R captain /app
 
 USER captain
 

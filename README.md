@@ -8,9 +8,9 @@
 
 - From your terminal or command line run
     
-    - `git clone git@github.com:bestbrain10/fw-validator-api.git`
+    - `git clone git@github.com:bestbrain10/transaction-runner.git`
 
-    - `cd fw-validator-api`
+    - `cd transaction-runner`
 
     - `npm install`
 
