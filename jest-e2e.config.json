@@ -7,6 +7,7 @@
       ],
       "testRegex": [
           "__tests__/*",
+          ".spec.js$",
           "!test-results/*"
       ],
       "coverageDirectory": "test-results",

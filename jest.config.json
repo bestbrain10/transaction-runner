@@ -8,19 +8,18 @@
       "!routes/*",
       "!index.js",
       "!server.js",
-      "!test-results/*"
+      "!database.js",
+      "!migrations/*",
+      "!config/*",
+      "!coverage/*"
   ],
   "moduleFileExtensions": [
       "js",
       "json"
   ],
   "testRegex": [
-      ".spec.js$",
-      ".test.js$",
-      "!__tests__ /*",
-      "!test-results/*"
+      ".test.js$"
   ],
-  "coverageDirectory": "test-results",
   "testEnvironment": "node",
   "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/$1"
