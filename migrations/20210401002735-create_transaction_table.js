@@ -10,7 +10,7 @@ module.exports = {
       sender: Sequelize.INTEGER,
       receiver: Sequelize.INTEGER,
       tx_type: {
-        type: DataTypes.ENUM,
+        type: Sequelize.ENUM,
         values: [
           'DEBIT',
           'CREDIT',

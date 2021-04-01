@@ -1,4 +1,4 @@
-const { Model } = require('sequelize/types');
+const { Model } = require('sequelize');
 const jwt = require('../../common/utils/jwt');
 
 
