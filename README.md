@@ -1,4 +1,6 @@
-# transaction-runner
+# Transaction Runner
+
+[![Test](https://github.com/bestbrain10/transaction-runner/actions/workflows/test.yml/badge.svg)](https://github.com/bestbrain10/transaction-runner/actions/workflows/test.yml)
 
 ## How to Install 
 
