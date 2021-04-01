@@ -1,11 +1,13 @@
-const { Model } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 const hashPassword = require('../../common/utils/hash-password');
+const DB = require('../../database');
 
-module.exports = class User extends Model {
+class User extends Model {
 
     comparePassword(inputPassword) {
         return this.password === hashPassword(inputPassword);
     }
+
 
     static async register(user) {
         const emailExists = await this.count({
@@ -40,3 +42,25 @@ module.exports = class User extends Model {
         return user;
     }
 }
+
+User.init({
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        fullname: DataTypes.STRING,
+        email: DataTypes.STRING,
+        password: DataTypes.STRING,
+        balance: {
+            type: DataTypes.FLOAT,
+            default: 0
+        }
+    }, {
+        tableName: 'users',
+        underscored: true,
+        timestamps: true,
+        sequelize: DB
+})
+
+module.exports = User;

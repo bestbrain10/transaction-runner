@@ -30,8 +30,8 @@ module.exports = (schema) => async (req, res, next) => {
         next();
     } catch (error) {
         // refined error message
-        res.status(422).json({
-            error: error.message || error.details.reduce(reducer, {}),
+        res.status(400).json({
+            error: !error.details ? error.message : error.details.reduce(reducer, {}),
         });
     }
 };

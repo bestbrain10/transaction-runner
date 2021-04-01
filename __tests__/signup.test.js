@@ -1,0 +1,78 @@
+
+
+require('dotenv').config()
+
+const request = require('supertest');
+const server = require('../server');
+const database = require('../database');
+const User = require('../auth/models/user.model')
+
+// email is unique
+// fails with empty body
+// check for props
+
+describe('Signup API', () => {
+
+    beforeAll(async () => {
+        await database.authenticate();
+    });
+
+    describe('Request fails if request body is empty', () => {
+        let response;
+
+        beforeAll(async () => {
+            response = await request(server).post('/signup')
+        })
+
+        it('returns 400 status code', () => {
+            expect(response.statusCode).toBe(400)
+        })
+
+        it('returns error message', () => {
+            expect(response.body).toEqual({
+                error: {
+                    fullname: 'fullname is required',
+                    email: 'email is required',
+                    password: 'password is required'
+                }
+            })
+        })
+    })
+
+
+    describe('Request fails if email is not unique', () => {
+        let response;
+        const demoEmail = 'ironman@avengers.com';
+        const requestArgs = {
+            fullname: 'Tony Stark',
+            email: demoEmail,
+            password: 'hashofpassword'
+        }
+
+        beforeAll(async () => {
+            await User.findOrCreate({
+                where: {
+                    email: demoEmail
+                },
+                defaults: requestArgs
+            })
+
+            response = await request(server).post('/signup', requestArgs)
+        })
+
+        it('returns 400 status code', () => {
+            expect(response.statusCode).toBe(400)
+        })
+
+        it('returns error message', () => {
+            expect(response.body).toEqual({
+                error: {
+                    fullname: 'fullname is required',
+                    email: 'email is required',
+                    password: 'password is required'
+                }
+            })
+        })
+    })
+
+});

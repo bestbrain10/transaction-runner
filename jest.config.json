@@ -7,7 +7,7 @@
       "!__mocks__/*",
       "!routes/*",
       "!index.js",
-      "!app.js",
+      "!server.js",
       "!test-results/*"
   ],
   "moduleFileExtensions": [

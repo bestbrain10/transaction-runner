@@ -10,16 +10,15 @@ const authRoutes = require('./auth/routes');
 
 const customExpress = Object.create(express().response, {
   data: {
-    value(data, message = 'API response message') {
+    value(data) {
       return this.type('json').status(200).json({
-        message,
         status: 'success',
         data,
       });
     },
   },
   error: {
-    value(error, message = 'API response message') {
+    value(error, message = 'An error occured') {
       return this.json({
         message,
         status: 'error',
@@ -44,11 +43,8 @@ app.use(express.urlencoded({
 }));
 
 app.response = Object.create(customExpress);
-app.use(
-  '/', 
-  indexRoute, 
-  authRoutes
-);
+app.use(authRoutes);
+app.use('/', indexRoute);
 
 
 // catch all errors middleware
