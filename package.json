@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "coverage": "jest --coverage & rm -rf test-results",
+    "coverage": "jest --coverage",
     "test:e2e": "jest --config jest-e2e.config.json",
     "lint": "eslint \"**/*.js\" --fix",
     "migrate:create": "sequelize-cli migration:generate --name",
