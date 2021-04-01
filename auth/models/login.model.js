@@ -14,12 +14,22 @@ module.exports = class Login extends Model {
         })
     }
 
+    static decodeLoginToken(token) {
+        const decoded = jwt.decode(token);
+        if (!decoded || !decoded.loginID) {
+            return null;
+        }
+
+        return loginID;
+    }
+
     static verifyLogin(loginID) {
         return this.findOne({
             where: {
                 id: loginID,
                 loggedOut: false
-            }
+            },
+            attributes: ['user']
         });
     }
 
@@ -29,7 +39,7 @@ module.exports = class Login extends Model {
         });
 
         return Object.assign(user.toJSON(), {
-            token: jwt.encode({ id: userLogin.id })
+            token: jwt.encode({ loginID: userLogin.id })
         });
     }
 }

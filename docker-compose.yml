@@ -1,0 +1,24 @@
+version: "3.3"
+
+volumes:
+  database-data: {}
+
+services:
+  
+  database:
+    image: postgres:13.2-alpine
+    ports:
+      - 54320:5432
+    environment:
+      - POSTGRES_PASSWORD: 123456789
+        POSTGRES_USER: thehulk
+        POSTGRES_DB: transaction_runner
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+      
+  restapi:
+    context: .
+    depends_on:
+      - database
+    ports:
+      - '3000:3000'
