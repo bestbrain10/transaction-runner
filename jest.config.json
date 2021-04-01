@@ -17,6 +17,7 @@
   "testRegex": [
       ".spec.js$",
       ".test.js$",
+      "!__tests__ /*",
       "!test-results/*"
   ],
   "coverageDirectory": "test-results",
