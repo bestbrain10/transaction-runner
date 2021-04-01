@@ -12,7 +12,7 @@ module.exports = class {
     }
 
     static async register(req, res, next) {
-        res.data(
+        res.status(201).data(
             await User.register(req.body)
         );
     }

@@ -6,12 +6,12 @@ const catchAllErrorsMiddleware = require('./common/middlewares/catch-all-errors.
 const notFoundMiddleware = require('./common/middlewares/not-found.middleware');
 const indexRoute = require('./common/middlewares/index.middleware');
 
-const authRoutes = require('./auth/routes');
+const authRoutes = require('./routes/auth.route');
 
 const customExpress = Object.create(express().response, {
   data: {
     value(data) {
-      return this.type('json').status(200).json({
+      return this.type('json').json({
         status: 'success',
         data,
       });
@@ -43,8 +43,8 @@ app.use(express.urlencoded({
 }));
 
 app.response = Object.create(customExpress);
+app.all('/', indexRoute);
 app.use(authRoutes);
-app.use('/', indexRoute);
 
 
 // catch all errors middleware

@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const hashPassword = require('../../common/utils/hash-password');
 const DB = require('../../database');
+const { omit } = require('lodash');
 
 class User extends Model {
 
@@ -18,14 +19,13 @@ class User extends Model {
             return Promise.reject({ email: 'Email already exists' });
         }
 
-        return this.create({
-            ...user,
-            password: hashPassword(user.password)
-        })
+        const newUser =  await this.create(user)
+
+        return omit(newUser.toJSON(), ['password'])
     }
 
     static async login(loginParams) {
-        const user = await this.findOne({
+        const user = await this.scope('withPassword').findOne({
             where: {
                 email: loginParams.email
             },
@@ -60,7 +60,17 @@ User.init({
         tableName: 'users',
         underscored: true,
         timestamps: true,
+        defaultScope: {
+            attributes: { exclude: ['password'] }
+        },
+        scopes: { 
+            withPassword: { attributes: {} }
+         },
         sequelize: DB
-})
+});
+
+User.beforeCreate((user, options) => {
+    user.password = hashPassword(user.password);
+});
 
 module.exports = User;

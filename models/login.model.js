@@ -1,5 +1,5 @@
 const { Model } = require('sequelize');
-const jwt = require('../../common/utils/jwt');
+const jwt = require('../common/utils/jwt');
 
 
 module.exports = class Login extends Model {

@@ -1,5 +1,5 @@
 const User = require('../../auth/models/user.model');
-const Login = require('../../auth/models/login.model');
+const Login = require('../../models/login.model');
 
 
 module.exports = async (req, res, next) => {

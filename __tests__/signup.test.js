@@ -5,7 +5,8 @@ require('dotenv').config()
 const request = require('supertest');
 const server = require('../server');
 const database = require('../database');
-const User = require('../auth/models/user.model')
+const User = require('../models/user.model');
+const { v4: uuid } = require('uuid');
 
 // email is unique
 // fails with empty body
@@ -57,7 +58,7 @@ describe('Signup API', () => {
                 defaults: requestArgs
             })
 
-            response = await request(server).post('/signup', requestArgs)
+            response = await request(server).post('/signup').send(requestArgs)
         })
 
         it('returns 400 status code', () => {
@@ -67,12 +68,36 @@ describe('Signup API', () => {
         it('returns error message', () => {
             expect(response.body).toEqual({
                 error: {
-                    fullname: 'fullname is required',
-                    email: 'email is required',
-                    password: 'password is required'
+                    email: 'Email already exists',
                 }
             })
         })
     })
 
+    describe('Request succeeds if email is unique', () => {
+        let response;
+        const requestArgs = {
+            fullname: 'Sentry Suit',
+            email: `${uuid()}@avengers.com`,
+            password: 'hashofpassword'
+        }
+
+        beforeAll(async () => {
+        
+
+            response = await request(server).post('/signup').send(requestArgs)
+        })
+
+        it('returns 201 status code', () => {
+            expect(response.statusCode).toBe(201)
+        })
+
+        it('returns user object', () => {
+            expect(response.body).toHaveProperty('status');
+            expect(response.body).toHaveProperty('data');
+
+            expect(Object.keys(response.body.data).sort())
+            .toEqual(['balance','email', 'fullname', 'id', 'createdAt', 'updatedAt'].sort())
+        })
+    })
 });

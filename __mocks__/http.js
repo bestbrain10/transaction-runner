@@ -14,6 +14,7 @@ exports.mockRequest = ({
   user = {},
   query = {},
   method,
+  loginID,
   originalUrl,
 } = {}) => ({
   body,
@@ -21,6 +22,7 @@ exports.mockRequest = ({
   user,
   method,
   originalUrl,
+  loginID,
   query,
   get: (arg) => arg,
 });
