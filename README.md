@@ -33,6 +33,15 @@ https://documenter.getpostman.com/view/2210503/TzCP888F
 
  - If you make any changes, you will have to first close the running server, and the start it again using `npm run start`
 
+## Using as SDK
+
+- properties
+    - User
+    - Login
+    - UserTransaction
+- methods
+    - databaseInit()
+    - databaseClose()
 
 ## Running Test
 
