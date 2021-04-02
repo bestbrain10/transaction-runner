@@ -2,7 +2,6 @@ require('dotenv').config()
 
 const { mockNext, mockRequest, mockResponse } = require('../__mocks__/http');
 const SignupController = require('./signup.controller');
-jest.mock('./database');
 const User = require('../models/user.model');
 
 

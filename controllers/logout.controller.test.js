@@ -2,12 +2,11 @@ require('dotenv').config()
 
 const { mockNext, mockRequest, mockResponse } = require('../__mocks__/http');
 const LogoutController = require('./logout.controller');
-jest.mock('./database');
-const Login = require('../models/user.model');
+const Login = require('../models/login.model');
 
 
 describe('Logout Controller', () => {
-   it('Can Login', async () => {
+   it('Can Logout', async () => {
         const req = mockRequest({
             loginID: 5
         });
@@ -25,4 +24,4 @@ describe('Logout Controller', () => {
             id: 5
         })
    });
-});z
+});

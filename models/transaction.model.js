@@ -42,8 +42,8 @@ class UserTransaction extends Model {
 
     /**
      * 
-     * @param {from, to, amount} transferDetails 
-     * @param {Transaction} transaction 
+     * @param {object} transferDetails 
+     * @param {object} transaction 
      * @returns 
      */
     static async logTransfer(transferDetails, transaction) {
@@ -63,30 +63,60 @@ class UserTransaction extends Model {
         return true
     }
 
+    /**
+     * Deposit session callback
+     * @param {number} user 
+     * @param {number} amount 
+     * @param {object} transaction 
+     * @returns 
+     */
+    static async depositCallback(user, amount, transaction) {
+            await User.modifyBalance(user, amount, transaction);
+            await this.credit({
+                receiver: user,
+                amount
+            }, transaction);
 
+            return true;
+    }
+
+    /**
+     * Deposits amount into user wallet balance
+     * @param {number} user 
+     * @param {number} amount 
+     * @returns {boolean}
+     */
     static async deposit(user, amount) {
         try {
-            return DB.transaction(async transaction => {
-                await User.modifyBalance(user, amount, transaction);
-                await this.credit({ receiver: user, amount }, transaction);
-
-                return true;
-            });
+            return DB.transaction(transaction => this.depositCallback(user, amount, transaction));
         }catch(e) {
             return Promise.reject('Could not complete transaction');
         }
     }
 
+    /**
+     * Callback for transfer transaction session
+     * @param {object} transferDetails 
+     * @param {object} transaction 
+     * @returns 
+     */
+    static async transferCallback(transferDetails, transaction) {
+        const { from, to, amount } = transferDetails;
+        await User.modifyBalance(from, -1 * amount, transaction);
+        await User.modifyBalance(to, amount, transaction);
+        await this.logTransfer(transferDetails, transaction);
+
+        return true;
+    }
+
+    /**
+     * Transfers fund from one user to another
+     * @param {object} transferDetails
+     * @returns {boolean}
+     */
     static async transfer(transferDetails) {
         try {
-            return DB.transaction(async transaction => {
-                const { from, to, amount } = transferDetails;
-                await User.modifyBalance(from, -1 * amount, transaction);
-                await User.modifyBalance(to, amount, transaction);
-                await this.logTransfer(transferDetails, transaction);
-
-                return true;
-            });
+            return DB.transaction(transaction => this.transferCallback(transferDetails, transaction));
         } catch (e) {
             return Promise.reject('Could not complete transaction');
         }
