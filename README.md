@@ -2,6 +2,10 @@
 
 [![Test](https://github.com/bestbrain10/transaction-runner/actions/workflows/test.yml/badge.svg)](https://github.com/bestbrain10/transaction-runner/actions/workflows/test.yml)
 
+
+## API Documentation
+https://documenter.getpostman.com/view/2210503/TzCP888F
+
 ## How to Install 
 
 - Install NodeJS and NPM. Use this link and follow the steps for your own operating system https://nodejs.org/en/download/
