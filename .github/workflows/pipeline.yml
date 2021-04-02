@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  coverage:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,8 +23,8 @@ jobs:
     - name: Install dependencies
       run: npm i
 
-    # - name: Test
-    #   run: npm run coverage
+    - name: Test
+      run: npm run coverage
 
     - name: Clean up coverage
       run:  rm -rf coverage
