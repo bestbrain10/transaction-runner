@@ -8,6 +8,7 @@ module.exports = (err, req, res, next) => {
     res.status(400).errorMessage('Invalid JSON payload passed.');
   } else if (err.toString() === '[object Object]') {
     try{
+      console.log('here o')
       res.status(400).error(err);
     } catch {
       res.status(500).errorMessage('Server error');

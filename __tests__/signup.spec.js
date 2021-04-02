@@ -69,7 +69,9 @@ describe('Signup API', () => {
             expect(response.body).toEqual({
                 error: {
                     email: 'Email already exists',
-                }
+                },
+                message: 'An error occured',
+                status: 'error',
             })
         })
     })

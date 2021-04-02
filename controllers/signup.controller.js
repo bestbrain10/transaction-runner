@@ -12,8 +12,7 @@ module.exports = class {
     }
 
     static async register(req, res, next) {
-        res.status(201).data(
-            await User.register(req.body)
-        );
+        const response = await User.register(req.body)
+        res.status(201).data( response );
     }
 }

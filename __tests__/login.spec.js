@@ -124,7 +124,7 @@ describe('Login API', () => {
         it('returns user object', () => {
             expect(response.body).toHaveProperty('status');
             expect(response.body).toHaveProperty('data');
-            console.log(response.body.data)
+
             expect(Object.keys(response.body.data).sort())
                 .toEqual(['balance', 'email', 'fullname', 'id', 'createdAt', 'updatedAt', 'token'].sort())
         })
