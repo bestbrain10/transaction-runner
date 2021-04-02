@@ -8,7 +8,8 @@ const database = new Sequelize(process.env.DB_SCHEMA,
         dialect: 'postgres',
         dialectOptions: {
             ssl: process.env.DB_SSL == "true"
-        }
+        },
+        logging: process.env.NODE_ENV === 'development'
     });
 
 module.exports = database;
