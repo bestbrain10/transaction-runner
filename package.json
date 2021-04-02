@@ -10,7 +10,7 @@
     "lint": "eslint \"**/*.js\" --fix",
     "migrate:create": "sequelize-cli migration:generate --name",
     "migrate:run": "sequelize-cli db:migrate",
-    "start": "node index.js",
+    "start": "([ ! -f env ] || mv env .env) && node index.js",
     "start:dev": "nodemon index.js"
   },
   "repository": {
