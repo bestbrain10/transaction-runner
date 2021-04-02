@@ -1,7 +1,7 @@
 module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
     // eslint-disable-next-line no-console
-    console.error({ err });
+    console.error(err);
   }
 
   if (err.type && err.type === 'entity.parse.failed') {

@@ -135,7 +135,6 @@ describe('User Model', () => {
         });
     });
 
-
     describe('Modify Balance', () => {
         it('throws error if no user balance was updated', async () => {
             const updateSpy = jest.spyOn(User, 'update');

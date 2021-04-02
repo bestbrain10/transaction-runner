@@ -2,7 +2,7 @@ const {
 	mockRequest,
 	mockResponse,
 	mockNext,
-} = require('../__mocks__/http');
+} = require('../../__mocks__/http');
 const catchAllMiddleware = require('./catch-all-errors.middleware');
 
 describe('Catch all errors middleware', () => {
