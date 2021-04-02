@@ -45,9 +45,7 @@ jobs:
           rm -rf jest.config.json
           rm -rf jest-e2e.config.json
       - name: Add ENV variables
-        run: | 
-          echo ${{secrets.ENV}} > .env
-          cat .env
+        run: echo ${{secrets.ENV}} > .env
       - name: Run migrations
         run: npm run migrate:run
 

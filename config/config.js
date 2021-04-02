@@ -9,6 +9,17 @@ const {
   DB_SCHEMA
 } = process.env
 
+console.log({
+[NODE_ENV]: {
+  username: DB_USER,
+  password: DB_PASSWORD,
+  database: DB_SCHEMA,
+  host: DB_HOST,
+  dialect: 'postgres',
+  port: DB_PORT
+}
+})
+
 module.exports = {
   [NODE_ENV]: {
     username: DB_USER,
