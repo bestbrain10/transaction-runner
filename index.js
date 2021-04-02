@@ -2,11 +2,7 @@ require('dotenv').config()
 
 const database = require('./database');
 const server = require('./server');
-const fs = require('fs');
 
-console.log(
-    fs.readFileSync('.env', { encoding: 'utf8' })
-)
 database.authenticate()
 .then(() => {
     server.listen(process.env.PORT, () => {
