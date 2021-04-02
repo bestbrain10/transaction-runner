@@ -35,7 +35,6 @@ const customExpress = Object.create(express().response, {
       return this.json({
         message,
         status: 'error',
-        data: null,
       });
     },
   },
