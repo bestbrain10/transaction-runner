@@ -23,6 +23,10 @@ https://documenter.getpostman.com/view/2210503/TzCP888F
 
 ## Running Application as API Locally
 
+ - create a `.env` file in the project directory using `env.example` as template
+
+ - run `npm run migrate:run` to setup the database
+
  - Run `npm run start` to start the server
 
  - From your browser or REST client visit `http://localhost:4000` 
