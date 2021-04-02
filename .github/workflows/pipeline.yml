@@ -59,4 +59,3 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "transaction-runner-liv"
           heroku_email: "bestbrain10@gmail.com"
-          env_file: /.env
