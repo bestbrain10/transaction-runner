@@ -3,6 +3,14 @@ const User = require('../models/user.model');
 const UserTransaction = require('../models/transaction.model');
 
 module.exports = class {
+    static async profile(req, res, next) {
+        res.data({
+            ...req.user,
+            incomingTransactions: await UserTransaction.incomingTransactions(req.user.id),
+            outgoingTransactions: await UserTransaction.outgoingTransactions(req.user.id),
+        });
+    }
+
     static async getAllUsers(req, res, next) {
         const { limit = 30, skip = 0 } = req.query;
         res.data(
@@ -22,8 +30,8 @@ module.exports = class {
 
         res.data({
             ...user.toJSON(),
-            incomingTransactions: UserTransaction.incomingTransactions(req.params.user),
-            outgoingTransactions: UserTransaction.outgoingTransactions(req.params.user),
+            incomingTransactions: await UserTransaction.incomingTransactions(req.params.user),
+            outgoingTransactions: await UserTransaction.outgoingTransactions(req.params.user),
         });
     }
 }

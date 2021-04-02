@@ -29,9 +29,12 @@ class User extends Model {
             return Promise.reject({ email: 'Email already exists' });
         }
 
-        const newUser =  await this.create(user)
+        const newUser =  await this.create({
+            ...user,
+            balance: 0
+        });
 
-        return omit(newUser.toJSON(), ['password'])
+        return omit(newUser.toJSON(), ['password']);
     }
 
     /**
@@ -46,15 +49,15 @@ class User extends Model {
             },
         });
 
-        if (user) {
+        if (!user) {
             return Promise.reject({ email: 'Email does not exist' });
         }
 
-        if(user.comparePassword(loginParams.password)) {
+        if(!user.comparePassword(loginParams.password)) {
             return Promise.reject({ password: 'Incorrect password' });            
         }
 
-        return user;
+        return omit(user.toJSON(), ['password']);
     }
 
     /**
@@ -65,12 +68,18 @@ class User extends Model {
      * @returns 
      */
     static async modifyBalance(user, amount, transaction) {
-        return this.update({
+        const [ count ] = await this.update({
             balance: Sequelize.literal(`balance + ${amount}`)
         }, {
             where: { id: user },
             transaction
         });
+
+        if(!count) {
+            return Promise.reject('Could not complete transaction');
+        }
+
+        return true;
     }
 }
 

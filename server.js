@@ -6,9 +6,11 @@ const catchAllErrorsMiddleware = require('./common/middlewares/catch-all-errors.
 const notFoundMiddleware = require('./common/middlewares/not-found.middleware');
 const indexRoute = require('./common/middlewares/index.middleware');
 
+const authMiddleware = require('./common/middlewares/auth.middleware');
 const authRoutes = require('./routes/auth.route');
 const userRoutes = require('./routes/user.route');
 const transactionRoutes = require('./routes/transaction.route');
+const logoutRoute = require('./routes/logout.route');
 
 const customExpress = Object.create(express().response, {
   data: {
@@ -47,8 +49,9 @@ app.use(express.urlencoded({
 app.response = Object.create(customExpress);
 app.all('/', indexRoute);
 app.use(authRoutes);
-app.use('/users', userRoutes);
-app.use('/transactions', transactionRoutes);
+app.use('/logout', authMiddleware, logoutRoute);
+app.use('/users', authMiddleware, userRoutes);
+app.use('/transactions', authMiddleware, transactionRoutes);
 
 
 // catch all errors middleware

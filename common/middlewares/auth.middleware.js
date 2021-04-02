@@ -1,4 +1,4 @@
-const User = require('../../auth/models/user.model');
+const User = require('../../models/user.model');
 const Login = require('../../models/login.model');
 
 
@@ -11,11 +11,10 @@ module.exports = async (req, res, next) => {
 
     const token = header.slice(7);
     const loginID = Login.decodeLoginToken(token);
-
     if(!loginID) {
         return res.status(401).errorMessage('Invalid token passed');
     }
-
+    
     const loginDetails = await Login.verifyLogin(loginID);
 
     if(!loginDetails) {

@@ -9,6 +9,11 @@ router.get(
 );
 
 router.get(
+    '/profile',
+    $(UserController.profile)
+)
+
+router.get(
     '/:user',
     $(UserController.getOneUser)
 )

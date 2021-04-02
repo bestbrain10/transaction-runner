@@ -68,7 +68,7 @@ class UserTransaction extends Model {
         try {
             return DB.transaction(async transaction => {
                 await User.modifyBalance(user, amount, transaction);
-                await this.credit({ receiver, amount }, transaction);
+                await this.credit({ receiver: user, amount }, transaction);
 
                 return true;
             });
@@ -80,7 +80,7 @@ class UserTransaction extends Model {
     static async transfer(transferDetails) {
         try {
             return DB.transaction(async transaction => {
-                const { from, to } = transferDetails;
+                const { from, to, amount } = transferDetails;
                 await User.modifyBalance(from, -1 * amount, transaction);
                 await User.modifyBalance(to, amount, transaction);
                 await this.logTransfer(transferDetails, transaction);

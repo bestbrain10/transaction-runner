@@ -39,10 +39,10 @@ module.exports = class {
 
     static async deposit(req, res, next) {
         res.data(
-            await UserTransaction.deposit({
-                amount: req.body.amount,
-                user: req.user.id
-            })
+            await UserTransaction.deposit(
+                req.user.id,
+                req.body.amount
+            )
         )
     }
 }
