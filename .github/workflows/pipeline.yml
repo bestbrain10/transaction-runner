@@ -26,16 +26,36 @@ jobs:
     - name: Test
       run: npm run coverage
 
-    - name: Clean up coverage
-      run:  rm -rf coverage
 
-  deploy:
+
+  setup:
     needs: coverage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+      - name: NPM Clean up
+        run: npm prune
+      - name: Clean up coverage
+        run:  rm -rf coverage
+      - name: Remove Test files
+        run: |
+          find . -type f -name '*.test.js' -delete
+          rm -rf __mocks__
+          rm -rf __tests__
+          rm -rf jest.config.json
+          rm -rf jest-e2e.config.json
+      - name: Add ENV variables
+        run: echo ${{secrets.ENV}} > .env
+      - name: Run migrations
+        run: npm run migrate:run
+
+  deploy:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "transaction-runner-liv" #Must be unique in Heroku
+          heroku_app_name: "transaction-runner-liv"
           heroku_email: "bestbrain10@gmail.com"
