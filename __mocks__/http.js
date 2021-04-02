@@ -13,6 +13,7 @@ exports.mockRequest = ({
   params = {},
   user = {},
   query = {},
+  headers = {},
   method,
   loginID,
   originalUrl,
@@ -22,9 +23,10 @@ exports.mockRequest = ({
   user,
   method,
   originalUrl,
+  headers,
   loginID,
   query,
-  get: (arg) => arg,
+  get: (arg) => headers[arg],
 });
 
 exports.mockNext = () => {};
