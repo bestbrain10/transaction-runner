@@ -45,9 +45,7 @@ jobs:
           rm -rf jest.config.json
           rm -rf jest-e2e.config.json
       - name: Add ENV variables
-        run: |
-          echo "${{secrets.ENV}}" > .env
-          echo "${{secrets.ENV}}" > env
+        run: echo "${{secrets.ENV}}" > .env
       - name: Run migrations
         run: npm run migrate:run
 
@@ -61,3 +59,4 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "transaction-runner-liv"
           heroku_email: "bestbrain10@gmail.com"
+          env_file: /.env
