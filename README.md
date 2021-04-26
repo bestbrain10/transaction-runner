@@ -1,7 +1,6 @@
 # Transaction Runner
 
-[![Test](https://github.com/bestbrain10/transaction-runner/actions/workflows/test.yml/badge.svg)](https://github.com/bestbrain10/transaction-runner/actions/workflows/test.yml)
-
+[![Docker Image CI](https://github.com/bestbrain10/transaction-runner/actions/workflows/pipeline.yml/badge.svg)](https://github.com/bestbrain10/transaction-runner/actions/workflows/pipeline.yml)
 
 ## API Documentation
 https://documenter.getpostman.com/view/2210503/TzCP888F
