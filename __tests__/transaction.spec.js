@@ -8,9 +8,7 @@ const database = require('../database');
 
 
 describe('Transactions API', () => {
-	// can deposit
-	// can transfer
-	// can't transfer with insufficient balance
+
 	let token;
 	let id;
 	beforeAll(async () => {
