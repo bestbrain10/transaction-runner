@@ -7,6 +7,7 @@
     "test": "jest --config jest.config.json",
     "coverage": "rm -rf coverage && jest --config jest.config.json --coverage",
     "test:e2e": "jest --config jest-e2e.config.json",
+    "e2e:ci": "npm run migrate:run && npm run test:e2e",
     "lint": "eslint \"**/*.js\" --fix",
     "migrate:create": "sequelize-cli migration:generate --name",
     "migrate:run": "sequelize-cli db:migrate",

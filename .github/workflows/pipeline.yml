@@ -26,15 +26,22 @@ jobs:
     - name: Test
       run: npm run coverage
 
-
-
-  setup:
+  integration:
     needs: coverage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: NPM Clean up
-        run: npm prune
+      - name: Set Compose environment to CI
+        run: echo "${{secrets.CI_ENV}}" > .env
+      - name: Run integration tests
+        run: DB_PORT=5432 docker-compose up --exit-code-from restapi
+
+
+  setup:
+    needs: integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
       - name: Clean up coverage
         run:  rm -rf coverage
       - name: Remove Test files
@@ -44,10 +51,13 @@ jobs:
           rm -rf __tests__
           rm -rf jest.config.json
           rm -rf jest-e2e.config.json
-      - name: Add ENV variables
+          rm -rf Dockerfile
+          rm -rf docker-compose.yml
+      - name: Add production ENV variables for migration
         run: echo "${{secrets.ENV}}" > .env
       - name: Run migrations
         run: npm run migrate:run
+
 
   deploy:
     needs: setup
