@@ -5,15 +5,15 @@ const LoginController = require('../controllers/login.controller');
 const $ = require('express-async-handler');
 
 router.post(
-    '/signup', 
-    Validator(SignupController.registerSchema), 
-    $(SignupController.register)
+	'/signup', 
+	Validator(SignupController.registerSchema), 
+	$(SignupController.register)
 );
 
 router.post(
-    '/login',
-    Validator(LoginController.loginSchema),
-    $(LoginController.login)
+	'/login',
+	Validator(LoginController.loginSchema),
+	$(LoginController.login)
 );
 
 

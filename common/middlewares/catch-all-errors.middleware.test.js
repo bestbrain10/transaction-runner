@@ -12,7 +12,7 @@ describe('Catch all errors middleware', () => {
 		const res = mockResponse();
 
 		const consoleSpy = jest.spyOn(console, 'error');
-		consoleSpy.mockImplementation((...args) => true);
+		consoleSpy.mockImplementation(() => true);
 		const error = {
 			stuff: 'you got this wrong',
 		};
@@ -27,7 +27,7 @@ describe('Catch all errors middleware', () => {
 		const res = mockResponse();
 
 		const consoleSpy = jest.spyOn(console, 'error');
-		consoleSpy.mockImplementation((...args) => true);
+		consoleSpy.mockImplementation(() => true);
 		const error = {
 			stuff: 'you got this wrong',
 		};

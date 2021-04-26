@@ -4,18 +4,18 @@ const $ = require('express-async-handler');
 
 
 router.get(
-    '/',
-    $(UserController.getAllUsers)
+	'/',
+	$(UserController.getAllUsers)
 );
 
 router.get(
-    '/profile',
-    $(UserController.profile)
-)
+	'/profile',
+	$(UserController.profile)
+);
 
 router.get(
-    '/:user',
-    $(UserController.getOneUser)
-)
+	'/:user',
+	$(UserController.getOneUser)
+);
 
 module.exports = router;

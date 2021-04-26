@@ -6,18 +6,19 @@ const Login = require('../models/login.model');
 
 
 module.exports = class {
-    static get loginSchema() {
-        return joi.object().keys({
-            email: joi.string().email().required(),
-            password: joi.string().required()
-        });
-    }
+	static get loginSchema() {
+		return joi.object().keys({
+			email: joi.string().email().required(),
+			password: joi.string().required()
+		});
+	}
 
-    static async login(req, res, next) {
-        const user = await User.login(req.body);
+	// eslint-disable-next-line no-unused-vars
+	static async login(req, res, next) {
+		const user = await User.login(req.body);
 
-        res.data(
-          await  Login.loginUser(user)
-        );
-    }
-}
+		res.data(
+			await  Login.loginUser(user)
+		);
+	}
+};

@@ -1,29 +1,24 @@
 
-require('dotenv').config()
-
 const request = require('supertest');
 const server = require('../server');
-const database = require('../database');
 
 describe('Index Route', () => {
-    let response;
+	let response;
 
-    beforeAll(async () => {
-        await database.authenticate();
+	beforeAll(async () => {
+		response = await request(server).get('/');
+	});
 
-        response = await request(server).get('/')
-    });
+	it('returns 200 status code', () => {
+		expect(response.statusCode).toBe(200);
+	});
 
-    it('returns 200 status code', () => {
-        expect(response.statusCode).toBe(200);
-    });
-
-    it('shows status API Online', () => {
-        expect(response.body).toEqual({
-            status: 'success', 
-            data: {
-                status: 'API Online'
-            }
-        });
-    });
+	it('shows status API Online', () => {
+		expect(response.body).toEqual({
+			status: 'success', 
+			data: {
+				status: 'API Online'
+			}
+		});
+	});
 });

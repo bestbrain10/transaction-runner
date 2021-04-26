@@ -8,7 +8,7 @@ const joi = require('joi');
  * @param {Object} currentError
  */
 const reducer = (accumulatedObject, currentError) => Object.assign(accumulatedObject, {
-    [currentError.context.label || currentError.context.key]: currentError.message.replace(new RegExp('"', 'ig'), ''),
+	[currentError.context.label || currentError.context.key]: currentError.message.replace(new RegExp('"', 'ig'), ''),
 });
 
 /**
@@ -18,18 +18,18 @@ const reducer = (accumulatedObject, currentError) => Object.assign(accumulatedOb
  * @returns middleware
  */
 module.exports = (schema) => async (req, res, next) => {
-    try {
-        const value = await joi.attempt(req.body || {}, schema, {
-            abortEarly: false,
-            convert: true,
-            stripUnknown: true,
-        });
-        req.bodyOld = req.body;
-        // refined request body
-        req.body = value;
-        next();
-    } catch (error) {
-        // refined error message
-        res.status(400).error(!error.details ? error.message : error.details.reduce(reducer, {}));
-    }
+	try {
+		const value = await joi.attempt(req.body || {}, schema, {
+			abortEarly: false,
+			convert: true,
+			stripUnknown: true,
+		});
+		req.bodyOld = req.body;
+		// refined request body
+		req.body = value;
+		next();
+	} catch (error) {
+		// refined error message
+		res.status(400).error(!error.details ? error.message : error.details.reduce(reducer, {}));
+	}
 };

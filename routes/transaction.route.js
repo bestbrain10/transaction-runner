@@ -4,16 +4,16 @@ const $ = require('express-async-handler');
 const Validator = require('../common/middlewares/validator.middleware');
 
 router.post(
-    '/deposit', 
-    Validator(TransactionController.depositSchema), 
-    $(TransactionController.deposit)
+	'/deposit', 
+	Validator(TransactionController.depositSchema), 
+	$(TransactionController.deposit)
 );
 
 router.post(
-    '/transfer', 
-    Validator(TransactionController.transferSchema), 
-    $(TransactionController.balanceCheck),
-    $(TransactionController.transfer)
-)
+	'/transfer', 
+	Validator(TransactionController.transferSchema), 
+	$(TransactionController.balanceCheck),
+	$(TransactionController.transfer)
+);
 
 module.exports = router;

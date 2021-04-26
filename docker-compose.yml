@@ -3,6 +3,9 @@ version: "3.3"
 volumes:
   database-data: {}
 
+networks:
+  avengers-network: {}
+
 services:
   
   database:
@@ -19,9 +22,20 @@ services:
 
   restapi:
     build: 
-        context: .
+      context: .
+      dockerfile: Dockerfile
+      args: 
+        PORT: 3000
     restart: always
+    env_file:
+      - .env
+    environment:
+      - DB_PORT=${DB_PORT:-54320}
+      - DB_HOST=database
     depends_on:
       - database
     ports:
       - '3000:3000'
+    networks:
+      - avengers-network
+    

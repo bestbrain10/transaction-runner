@@ -13,36 +13,36 @@ const transactionRoutes = require('./routes/transaction.route');
 const logoutRoute = require('./routes/logout.route');
 
 const customExpress = Object.create(express().response, {
-  data: {
-    value(data) {
-      return this.type('json').json({
-        status: 'success',
-        data,
-      });
-    },
-  },
-  error: {
-    value(error, message = 'An error occured') {
-      return this.json({
-        message,
-        status: 'error',
-        error,
-      });
-    },
-  },
-  errorMessage: {
-    value(message = 'API response message') {
-      return this.json({
-        message,
-        status: 'error',
-      });
-    },
-  },
+	data: {
+		value(data) {
+			return this.type('json').json({
+				status: 'success',
+				data,
+			});
+		},
+	},
+	error: {
+		value(error, message = 'An error occured') {
+			return this.json({
+				message,
+				status: 'error',
+				error,
+			});
+		},
+	},
+	errorMessage: {
+		value(message = 'API response message') {
+			return this.json({
+				message,
+				status: 'error',
+			});
+		},
+	},
 });
 
 app.use(express.json());
 app.use(express.urlencoded({
-  extended: false,
+	extended: false,
 }));
 
 app.response = Object.create(customExpress);
