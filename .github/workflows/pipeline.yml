@@ -71,4 +71,4 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "transaction-runner-liv"
-          heroku_email: "bestbrain10@gmail.com"
+          heroku_email: ${{secrets.DEPLOY_EMAIL}}
