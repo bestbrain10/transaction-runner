@@ -42,6 +42,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Add production ENV variables for migration
+        run: echo "${{secrets.ENV}}" > .env
+      - name: Run migrations
+        run: npm run migrate:run
       - name: Clean up coverage
         run:  rm -rf coverage
       - name: Remove Test files
@@ -53,10 +57,7 @@ jobs:
           rm -rf jest-e2e.config.json
           rm -rf Dockerfile
           rm -rf docker-compose.yml
-      - name: Add production ENV variables for migration
-        run: echo "${{secrets.ENV}}" > .env
-      - name: Run migrations
-        run: npm run migrate:run
+
 
 
   deploy:
