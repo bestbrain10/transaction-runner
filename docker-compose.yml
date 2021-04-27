@@ -32,7 +32,7 @@ services:
     env_file:
       - .env
     environment:
-      - NODE_ENV=CI
+      - NODE_ENV=ci
       - DB_PORT=${DB_PORT:-54320}
       - DB_HOST=database
     depends_on:
