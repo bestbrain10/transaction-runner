@@ -19,6 +19,8 @@ services:
     restart: always
     volumes:
       - database-data:/var/lib/postgresql/data/
+    networks:
+      - avengers-network
 
   restapi:
     build: 
