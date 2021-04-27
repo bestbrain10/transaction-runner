@@ -30,7 +30,6 @@ jobs:
     needs: coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Set Compose environment to CI
         run: echo "${{secrets.CI_ENV}}" > .env
       - name: Run integration tests
@@ -41,7 +40,6 @@ jobs:
     needs: integration
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Add production ENV variables for migration
         run: echo "${{secrets.ENV}}" > .env
       - name: Run migrations
@@ -64,7 +62,6 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
