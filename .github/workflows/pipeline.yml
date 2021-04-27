@@ -30,6 +30,7 @@ jobs:
     needs: coverage
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Set Compose environment to CI
         run: echo "${{secrets.CI_ENV}}" > .env
       - name: Run integration tests
@@ -40,8 +41,11 @@ jobs:
     needs: integration
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Add production ENV variables for migration
         run: echo "${{secrets.ENV}}" > .env
+      - name: Reinstall node_modules
+        run: npm ci
       - name: Run migrations
         run: npm run migrate:run
       - name: Clean up coverage
