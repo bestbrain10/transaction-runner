@@ -12,12 +12,13 @@ https://documenter.getpostman.com/view/2210503/TzCP888F
 - Install Git from https://git-scm.com/downloads
 
 - From your terminal or command line run
-    
-    - `git clone git@github.com:bestbrain10/transaction-runner.git`
+    ```sh
+        $ git clone git@github.com:bestbrain10/transaction-runner.git
 
-    - `cd transaction-runner`
+        $ cd transaction-runner`
 
-    - `npm install`
+        $ npm install
+    ```
 
 
 ## Running Application as API Locally
